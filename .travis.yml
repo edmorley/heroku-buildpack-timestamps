@@ -1,0 +1,6 @@
+dist: trusty
+# Use the more frequently updated Travis images.
+group: edge
+language: bash
+script:
+  - git grep -El '^#!/.+\b(bash|sh)\b' | xargs shellcheck
