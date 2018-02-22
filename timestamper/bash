@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Prevent infinite recursion in case the removal of this script from PATH didn't work.
+if [[ ! -v TIMESTAMPER_DIR ]]; then
+    echo 'Something went wrong! Timestamper invoked twice in the same compile!'
+    exit 1
+fi
+
+# Remove this script's directory from PATH, to prevent it being re-invoked
+# by any sub-scripts of the compile that use `/usr/bin/env bash`.
+export PATH="${PATH/${TIMESTAMPER_DIR}:/}"
+unset TIMESTAMPER_DIR
+
+function print_timestamped_line {
+    # Using Bash built-in rather than `date` to avoid process overhead.
+    printf "%(%F %T)T %s\\n" -1 "$1"
+    # For millisecond precision, we could use this instead:
+    #     echo "$(date +'%F %T.%3N')" "${line}"
+    # (not possible via built-ins, albeit overhead is only ~1s per 1K lines)
+}
+
+function timestamp_lines {
+    while IFS= read -r line; do 
+        print_timestamped_line "$line"
+    done
+    print_timestamped_line "-----> Buildpack compile completed in ${SECONDS}s"
+    echo
+}
+
+# Have to use process substitution and not pipe, since otherwise the
+# `exec` is run in a subshell and does not have the intended effect.
+exec "$@" > >(timestamp_lines)

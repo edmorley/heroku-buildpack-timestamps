@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+BUILDPACK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd .. && pwd)"
+TIMESTAMPER_DIR="${BUILDPACK_DIR}/timestamper"
+
+# The export file is sourced before the compile step of each subsequent buildpack:
+# https://devcenter.heroku.com/articles/buildpack-api#composing-multiple-buildpacks
+EXPORT_FILE="${BUILDPACK_DIR}/export"
+
+# The timestamper directory is before `/bin` on PATH, so shadows the real bash
+# (when using `#!/usr/bin/env bash`, which most official buildpacks do), allowing
+# later buildpacks' compile scripts to be intercepted and their output prefixed.
+# Somewhat sneaky, but it works - and is the only way without forking buildpacks.
+echo "export PATH=\"${TIMESTAMPER_DIR}:\${PATH}\"" > "${EXPORT_FILE}"
+# Simplifies the later cleanup of PATH.
+echo "export TIMESTAMPER_DIR='${TIMESTAMPER_DIR}'" >> "${EXPORT_FILE}"

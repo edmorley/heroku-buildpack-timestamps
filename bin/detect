@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [[ ! -f /bin/bash ]]; then
+    # Bash isn't where we expect (eg OpenBSD), which would cause problems since the
+    # timestamper script shebang cannot use /usr/bin/env, so hardcodes /bin/bash.
+    exit 1
+fi
+
+echo 'Timestamp'
