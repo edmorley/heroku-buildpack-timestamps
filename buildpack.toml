@@ -1,0 +1,7 @@
+[buildpack]
+name = "Timestamps"
+
+  [publish.Ignore]
+  files = [
+    ".travis.yml"
+  ]
