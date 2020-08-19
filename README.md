@@ -84,11 +84,11 @@ Official buildpacks known to be compatible:
 * [heroku/nodejs](https://github.com/heroku/heroku-buildpack-nodejs)
 * [heroku/php](https://github.com/heroku/heroku-buildpack-php)
 * [heroku/python](https://github.com/heroku/heroku-buildpack-python)
+* [heroku/ruby](https://github.com/heroku/heroku-buildpack-ruby)
 * [heroku/scala](https://github.com/heroku/heroku-buildpack-scala)
 
 Official buildpacks that are not yet compatible:
 * [heroku/go](https://github.com/heroku/heroku-buildpack-go)
-* [heroku/ruby](https://github.com/heroku/heroku-buildpack-ruby)
 
 ## Alternatives
 
