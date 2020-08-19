@@ -1,6 +1,6 @@
 # heroku-buildpack-timestamps
 
-[![Build Status](https://api.travis-ci.org/edmorley/heroku-buildpack-timestamps.svg?branch=master)](https://travis-ci.org/edmorley/heroku-buildpack-timestamps)
+[![Build Status](https://travis-ci.com/edmorley/heroku-buildpack-timestamps.svg?branch=main)](https://travis-ci.com/edmorley/heroku-buildpack-timestamps)
 
 A buildpack that adds timestamps and durations to the logs output by Heroku builds,
 as a lightweight means of timing/profiling slow builds.
